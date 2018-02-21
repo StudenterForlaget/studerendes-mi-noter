@@ -1,0 +1,174 @@
+\documentclass[a4paper]{amsart}
+\usepackage[english]{babel}       % Configure hyphenation.
+\usepackage[utf8]{inputenc}       % Allow e.g. danish letters.
+\usepackage[T1]{fontenc}          % Proper copy-paste and hyphenation of accented characters.
+\usepackage{tikz-cd}              % Commutative diagrams.
+\usepackage{graphicx}             % Include figures.
+\usepackage[margin=1cm,top=1cm]{geometry}
+\usepackage{faktor}               % Nice algebraic quotients. 
+\usepackage{xfrac}                % Nice in-line fraction.
+
+%       Theorem environments
+\newtheorem{theorem}{Theorem}[section]  % Add [section] to also index by section.
+\renewcommand{\thetheorem}{\arabic{theorem}} % For when using with \section*
+
+\newtheorem*{theorem*}{Theorem}
+
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}
+
+\newtheorem{claim}{Claim}[theorem]
+\renewcommand{\theclaim}{\Alph{claim}}   % For setting letters of each claim according to theorems
+
+\newtheorem*{claim*}{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%       Characters
+\let\epsilon\varepsilon
+\let\phi\varphi
+
+%       Number systems
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+%       Brackets
+\newcommand{\curly}[1]{ \left\{ #1 \right\} }
+\newcommand{\paren}[1]{ \left( #1 \right) }
+
+%       Addition math operators
+\DeclareMathOperator{\id}{id}           % Identity function.
+\DeclareMathOperator{\im}{im}           % Image of function.
+\DeclareMathOperator{\Span}{span}       % Span of X.
+
+%       Category theory
+\newcommand{\Set}{\mathsf{Set}}         % Sets.
+\newcommand{\Top}{\mathsf{Top}}         % Topological spaces.
+\newcommand{\Grp}{\mathsf{Grp}}         % Groups.
+\newcommand{\Ab}{\mathsf{Ab}}           % Abelian groups.
+\newcommand{\Rmod}{\mathsf{_RMod}}      % Left R modules - fixed ring R.
+\newcommand{\Modl}[1]{\mathsf{_#1Mod}}  % Left - modules. Parametrized ring.
+\newcommand{\Modr}[1]{\mathsf{Mod_#1}}  % Right - modules. Ditto.
+\DeclareMathOperator{\coker}{coker}     % Cokernel.
+\DeclareMathOperator{\Hom}{Hom}         % Hom set.
+\DeclareMathOperator{\End}{End}         % Endomorphisms.
+\DeclareMathOperator{\Aut}{Aut}         % Automorphisms.
+\DeclareMathOperator{\Spec}{Spec}       % Spectrum of ring.
+\DeclareMathOperator{\Ass}{Ass}         % Associated prime ideals.
+\DeclareMathOperator{\Ann}{Ann}         % Annihilator.
+\DeclareMathOperator{\Ext}{Ext}         % Ext functor.
+\DeclareMathOperator{\Tor}{Tor}         % Tor functor.
+\DeclareMathOperator{\colim}{colim}     % Colimit of diagram.
+
+%       Logic
+\renewcommand{\iff}{\Leftrightarrow}    % Short iff arrow.
+\renewcommand{\implies}{\Rightarrow}    % Left arrow.
+\renewcommand{\impliedby}{\Leftarrow}   % Right arrow.
+
+%       Analysis
+\newcommand{\diff}[2]{\frac{d#1}{d#2}}                   % Differentiation d/dx .
+\newcommand{\pdiff}[2]{\frac{\partial #1}{\partial #2}}  % Partial d/dx.
+\newcommand{\supp}[2]{\sup_{\substack{ #1 } } #2}        % Supremum with substack.
+\newcommand{\inff}[2]{\sup_{\substack{ #1 } } #2}        % Infimum with substack.
+\newcommand{\limm}[2]{\lim_{\substack{ #1} }  #2}        % Limit with substack.
+\newcommand{\norm}[1]{\lVert #1 \rVert}                  % Norm.
+\newcommand{\abs}[1]{\lvert#1\rvert}                     % Absolute value.
+\newcommand{\Int}[4]{\int_{#1}^{#2}\!{#3}\,d{#4}}        % Integral with proper spacing.
+
+
+%       Sequences
+\newcommand{\seq}[3]{(#1_{#2})_{#2 \in #3}} 				% Sequence (element, index, indexset)
+\newcommand{\family}[3]{\{#1_{#2}\}_{#2 \in #3}} 			% Family (element, index, indexset)
+\newcommand{\fsets}[2]{#1_1, \ldots, #1_{#2}} 			 	% Finitely many sets (set, numberOfSets)
+\newcommand{\funion}[2]{#1_1 \cup \ldots \cup #1_{#2}} 		% Finite union of sets (set, numberOfSets)
+\newcommand{\finter}[2]{#1_1 \cap \ldots \cap #1_{#2}}  	% Finite intersection of sets (set, numberOfSets)
+\newcommand{\fprod}[2]{#1_1 \times \ldots \times #1_{#2}} 	% Finite product (set, numberOfSets)
+\newcommand{\isets}[1]{#1_1, #1_2, \ldots} 			 		% Infinitely many sets (set)
+\newcommand{\iprod}[1]{#1_1 \times #1_2 \times \ldots} 		% Infinite product (set)
+\newcommand{\ball}[3]{\operatorname{B}_{#1}(#2, #3)}		% Ball (set, center, radius)
+
+%   MI
+\DeclareMathOperator{\Cov}{Cov}
+
+\usepackage{array}
+\setlength\extrarowheight{2pt}
+
+\begin{document}
+\pagestyle{empty}
+\begin{table}[]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\multicolumn{1}{|c|}{\textbf{P.}} & \multicolumn{1}{c|}{\textbf{Ref}} & \multicolumn{1}{c|}{\textbf{Result}} \\ \hline
+ &\textbf{Measures} & \\ \hline
+62 & Thm. 3.7, 3.8, 3.9 & Uniqueness of measures. \\ \hline
+193 & Thm. 9.2 & For $\sigma$-finite spaces the measure $\mu \otimes \nu$ with $\mu \otimes \nu(A \times B) = \mu(A) \nu(B)$ is unique. \\ \hline
+194 & Equation (9.3) & The product of two probability measures is a probability measure. \\ \hline
+195 & Thm. 9.4 & \textbf{Tonelli} Make sure $h$ is measurable and non-negative. \\ \hline
+195 & Thm. 9.10 & \textbf{Fubini} Make sure $h$ is measurable and integrable. \\ \hline
+214 & Thm. 10.11 & The Lebesgue measure is translation invariant. \\ \hline
+226 & Exercise 10.12 & $f: \R \to \R$ $\mathcal{M}$-function: $\begin{cases}
+f(-x)=f(x) \text{ and } f \ge 0 \implies \int_{-\infty}^0f(x)\,dx = \int_0^\infty f(x)\,dx\\
+f(-x)=f(x) \text{ and } f \in \mathcal{L}(0,\infty) \implies \int_{-\infty}^0f(x)\,dx = \int_0^\infty f(x)\,dx\\
+f(-x) = - f(x) \text{ and } f \in \mathcal{L}(0,\infty) \implies \int_{-\infty}^\infty f(x) \, dx = 0 \end{cases}$ \\ \hline
+233 & Thm. 11.7 & If $f \in \mathcal{M}^+$ and $\nu = f \cdot \mu \implies \forall g \in \mathcal{M}^+: \int g d\nu = \int g f d\mu$.  \\ \hline
+ &\textbf{EX, VX} & \\ \hline
+360 & Theorem 16.3 & $E|X| < \infty \implies E|cX| < \infty$, $E(cX) = cEX$\\
+& & $E|X| < \infty$, $E|Y| < \infty \implies E|X+Y| < \infty$, $E(X+Y) = EX + EY$. \\ \hline
+361 & Lemma 16.5 (Markov) & $P(X \ge 0)=1, c > 0 \implies P(X > c) \le EX/c$ \\ \hline
+362 & Ex. 16.6  & $X(P) = f \cdot \mu$ and $t$ measurable $\implies E \, t(X) = \int t \, f \, d \mu$
+\\ \hline
+
+364 & Ex. 16.9 & $X$ concentrated on $\N_0$, $p$ probability function $\implies$ $E X^k = \sum_{x=0}^\infty x^k p(x)$ \\ \hline
+                                    
+369 & Lemma 16.16 & $E X^2 < \infty$ $\implies$ $VX = EX^2-(EX)^2$ \\ \hline
+370 & Lemma 16.17 & $EX^2 < \infty$, $\alpha, \beta \in \R$ $\implies$ $V(\alpha + \beta X) = \beta^2VX$ \\ \hline
+372& Thm. 16.19 (Chebyshev) & $EX^2 < \infty, \epsilon > 0 \implies P(|X-EX|>\varepsilon) \le VX/\varepsilon^2$ \\ \hline
+
+378 & Thm. 16.31 (Jensen)& $f \in \mathcal{M}$ and convex on $I$, $P(X \in I) = 1$, $X$ and $f(X)$ first moment $\implies f(EX) \le E(f(X))$ \\ \hline
+& \textbf{Dist. functions}  & \\ \hline
+396 & Thm 17.3 and 17.4 & Conditions for distribution function.\\ \hline
+397 & & Calculate probability of intervals using distribution function. \\ \hline
+398 & Ex. 17.5 & Distribution function and density: $F(x) = \int_{-\infty}^x f(t)\,dt$ \\ \hline
+413 & Thm. 17.22 & Transformation of distribution functions: $G(y) = F(h^{-1}(y))$\\ \hline
+& \textbf{Joint/marg. dist} & \\ \hline
+427 & Cor. 18.2 & $(X,Y)(P) = f \cdot \mu \otimes \lambda$, $f$ measurable $\implies X(P)=g \cdot \mu$ with $g(x) = \int f(x,y) \, d \lambda(y)$\\ \hline
+& \textbf{Independence} & \\ \hline
+433 & Equation (18.8) & $X(P) = f \cdot \mu, Y(P) = g \cdot \lambda, X \perp X \implies (X, Y)$ has density $h(x, y) = f(x)g(y)$ \\ \hline
+438 & Thm. 18.12 & $h_1$, $h_2$ measurable functions and $X_1 \perp X_2 \implies h_1(X_1) \perp h_2(X_2)$\\ \hline
+& \textbf{Multiv. normal dist.} & \\ \hline
+451 & Thm 18.27 & $ \begin{pmatrix} X_1 \\ X_2 \end{pmatrix}
+\sim \mathcal{N} \left( \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix},  \begin{pmatrix} \Sigma_{11} & 0 \\ 0 & \Sigma_{22}\end{pmatrix}\right)
+\implies X_1 \perp X_2, X_1 \sim \mathcal{N}(\xi_1, \Sigma_{11})$ and $X_2 \sim \mathcal{N}(\xi_2, \Sigma_{22})$\\ \hline
+452 & Thm 18.28 & $ \begin{pmatrix} X_1 \\ X_2 \end{pmatrix}
+\sim \mathcal{N} \left( \begin{pmatrix} \xi_1 \\ \xi_2 \end{pmatrix},  \begin{pmatrix} \Sigma_{11} & \Sigma_{12} \\ \Sigma_{21} & \Sigma_{22}\end{pmatrix}\right)
+\implies X_1 \sim \mathcal{N}(\xi_1, \Sigma_{11})$ and $X_2 \sim \mathcal{N}(\xi_2, \Sigma_{22})$\\ \hline
+453 & Note above 18.29 & $X_1$ and $X_2$ independent $\iff \Sigma_{12} = \Sigma_{21} = 0$ (see Thm. 18.28 p. 452) \\ \hline
+& \textbf{Covariance} & \\ \hline
+464 & Equation (19.5) & $\Cov(X,Y) = EXY - EXEY$\\ \hline
+465 & Thm. 19.9 & $E|X| < \infty$, $E|Y| < \infty$, $X \perp Y \implies \Cov(X,Y)=0.$ \\ \hline
+468 & Lemma 19.13 & $X$, $Y$ second moment $\implies \Cov(X,X)=VX$ and $V(X+Y)=VX+VY+2\Cov(X,Y)$ \\ \hline
+469 & Ex. 19.15 & $(X_1, \dots, X_n)^T$ regular normal dist. on $\R^n \implies \Cov(X_i,X_j)=\Sigma_{ij}$ (and more) \\ \hline
+& \textbf{Convolution} & \\ \hline
+490 & Cor. 20.9 (formula) & $X(P)= f \cdot m$ and $Y(P)=g\cdot m$ and $X$, $Y$ independent $\implies$ $(X+Y)(P)=h \cdot m$,\\
+&& where $h(z)=\int_{-\infty}^\infty f(z-y)g(y) \, dy = \int_{-\infty}^\infty f(x)g(z-x) \, dx$ \\ \hline
+492 & Ex. 20.10 (end) & $X_1, \dots, X_n$ \textbf{independent}, $X_i \sim \mathcal{N}(\xi_i, \sigma^2_i) \implies \Sigma_{i=1}^nX_i \sim \mathcal{N}\left( \Sigma_{i=1}^n \xi_i, \Sigma_{i=1}^n \sigma^2_i\right)$.\\
+&& $X_1, \dots, X_n$ \textbf{iid}. with $X_i \sim \mathcal{N}(\xi, \sigma^2) \implies \frac{1}{n} \Sigma_{i=1}^nX_i \sim \mathcal{N}\left( \xi, \frac{\sigma^2}{n}\right)$ \\ \hline
+& \textbf{Sup. notes} & \\ \hline
+6 & Equation (6) & $E|X^2| < \infty \implies VX = E\left( V(X \mid \mathbb{D}) \right) + V\left( E(X \mid \mathbb{D}) \right)$ \\ \hline
+6 & Ex. 1 & $X$ is $\mathbb{D}$-measurable and integrable $\implies E(X \mid \mathbb{D}) = X$ a.e. \\ \hline
+10 & Cor. 8 & $E|X^2| < \infty \implies V(X \mid \mathbb{D})= E \left(X^2 \mid \mathbb{D}\right) - \left( E(X \mid \mathbb{D}) \right) ^2$\\ \hline
+12 & Problem 1.6 & $X \perp Y$, $E|X| < \infty \implies E(X \mid Y) = EX$ a.e.\\ \hline
+16 & Chebychev & $X_i$ iid. and $\overline{X}_n = \frac{1}{n} \Sigma_{i=1}^nX_i \implies P \left( |\overline{X}_n - \xi| \le x \frac{\sigma}{\sqrt{n}}\right) \ge 1 - \frac{1}{x^2}$\\ \hline
+\end{tabular}
+\end{table}
+\end{document}
